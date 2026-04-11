@@ -2,7 +2,9 @@ import streamlit as st
 import sys
 import os
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from database.db import get_all_applications
 
 st.set_page_config(
@@ -98,11 +100,22 @@ with st.sidebar:
     st.markdown("**DB:** PRISM_DB ✅")
 
 if page == "💬 Chat":
-    from ui.chat_page import show_chat_page
-    show_chat_page()
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("chat_page", os.path.join(os.path.dirname(__file__), "chat_page.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    mod.show_chat_page()
+
 elif page == "📊 Dashboard":
-    from ui.dashboard_page import show_dashboard_page
-    show_dashboard_page()
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("dashboard_page", os.path.join(os.path.dirname(__file__), "dashboard_page.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    mod.show_dashboard_page()
+
 elif page == "📥 Onboarding":
-    from ui.onboarding_page import show_onboarding_page
-    show_onboarding_page()
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("onboarding_page", os.path.join(os.path.dirname(__file__), "onboarding_page.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    mod.show_onboarding_page()
