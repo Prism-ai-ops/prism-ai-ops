@@ -115,7 +115,7 @@ def run_asset_checks(asset):
     elif asset_type == 'network':
         results.append(simulate_port_check(asset))
 
-    # Other: ping only (already added)
+    # Other: ping only
 
     return results
 
